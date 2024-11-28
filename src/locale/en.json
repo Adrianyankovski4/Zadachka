@@ -13,5 +13,10 @@
   "name": "Name",
   "edit_profile": "Edit Profile",
   "change_picture": "CHANGE PICTURE",
-  "save": "SAVE"
+  "save": "SAVE",
+  "addCard": "Add card",
+  "delete": "DELETE",
+  "add_new_card": "Add new card",
+  "cardName": "Card name",
+  "noCards": "No cards. Add some!"
 }
