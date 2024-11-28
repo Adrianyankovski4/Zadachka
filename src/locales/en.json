@@ -1,0 +1,16 @@
+{
+  "welcome": "Welcome",
+  "bio": "Bio",
+  "age": "Age",
+  "login": "Login",
+  "LOGIN": "LOGIN",
+  "username": "Username",
+  "password": "Password",
+  "home": "HOME",
+  "profile": "PROFILE",
+  "logout": "LOGOUT",
+  "name": "Name",
+  "edit_profile": "Edit Profile",
+  "change_picture": "CHANGE PICTURE",
+  "save": "SAVE"
+}
