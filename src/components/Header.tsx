@@ -1,18 +1,25 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import {useDispatch, useSelector} from 'react-redux';
+import { AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/auth/authSlice';
 import { resetProfile } from '../features/profile/profileSlice';
 import { Link } from 'react-router-dom';
 import { RootState } from '../app/store';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import Flag from 'react-world-flags';
+import { useLanguage } from "../context/LanguageContext";
+import { t, getFlagCode } from "../locale/translation";
 
 const Header: React.FC = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
-    const { t, i18n } = useTranslation();
+    const { language, setLanguage } = useLanguage();
+
+    const toggleLanguage = () => {
+        const newLanguage = language === "en" ? "bg" : "en";
+        setLanguage(newLanguage);
+    };
 
     const handleLogout = () => {
         dispatch(logout());
@@ -20,33 +27,28 @@ const Header: React.FC = () => {
         navigate('/login');
     };
 
-    const changeLanguage = (lng: string) => {
-        i18n.changeLanguage(lng);
-    };
-
     return (
         <AppBar position="static">
             <Toolbar>
                 <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    {!isAuthenticated ? (
-                        <>TUK NQMA NISHTO</>
-                    ) : (
-                        <>KAZAH TI</>
-                    )}
+                    {t("application")}
                 </Typography>
                 {isAuthenticated && (
                     <>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit', marginRight: 16 }}>
-                    <Button color="inherit">Home</Button>
-                </Link>
-                <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit', marginRight: 16 }}>
-                    <Button color="inherit">Profile</Button>
-                </Link>
-                <Button color="inherit" onClick={handleLogout}>
-                    Logout
-                </Button>
+                        <Link to="/" style={{ textDecoration: 'none', color: 'inherit', marginRight: 16 }}>
+                            <Button color="inherit">{t("home")}</Button>
+                        </Link>
+                        <Link to="/profile" style={{ textDecoration: 'none', color: 'inherit', marginRight: 16 }}>
+                            <Button color="inherit">{t("profile")}</Button>
+                        </Link>
+                        <Button color="inherit" onClick={handleLogout}>
+                            {t("logout")}
+                        </Button>
                     </>
                 )}
+                <IconButton onClick={toggleLanguage} color="inherit" sx={{ marginLeft: "auto" }}>
+                    <Flag code={getFlagCode()} style={{ width: 24, height: 16 }} />
+                </IconButton>
             </Toolbar>
         </AppBar>
     );

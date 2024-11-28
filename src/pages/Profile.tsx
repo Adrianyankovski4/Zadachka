@@ -3,11 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/store';
 import { updateProfile } from '../features/profile/profileSlice';
 import { TextField, Button, Container, Typography, Avatar } from '@mui/material';
+import {useLanguage} from "../context/LanguageContext";
+import { t } from "../locale/translation"
 
 const Profile: React.FC = () => {
     const profile = useSelector((state: RootState) => state.profile);
     const dispatch = useDispatch();
     const [form, setForm] = useState({ ...profile });
+    const { language } = useLanguage();
 
     useEffect(() => {
         setForm(profile);
@@ -37,14 +40,16 @@ const Profile: React.FC = () => {
 
     return (
         <Container>
-            <Typography variant="h4">Edit Profile</Typography>
+            <Typography variant="h4">
+                {t("edit_profile")}
+            </Typography>
             <Avatar src={form.avatar} sx={{ width: 100, height: 100, marginBottom: 2 }} />
             <Button variant="contained" color="secondary" component="label" sx={{ marginBottom: 2 }}>
-                Change Picture
+                {t("change_picture")}
                 <input type="file" hidden accept="image/*" onChange={handleAvatarChange} />
             </Button>
             <TextField
-                label="Name"
+                label={t("name")}
                 name="name"
                 value={form.name}
                 onChange={handleChange}
@@ -52,7 +57,7 @@ const Profile: React.FC = () => {
                 margin="normal"
             />
             <TextField
-                label="Age"
+                label={t("age")}
                 name="age"
                 value={form.age}
                 onChange={handleChange}
@@ -60,7 +65,7 @@ const Profile: React.FC = () => {
                 margin="normal"
             />
             <TextField
-                label="Bio"
+                label={t("bio")}
                 name="bio"
                 value={form.bio}
                 onChange={handleChange}
@@ -68,7 +73,7 @@ const Profile: React.FC = () => {
                 margin="normal"
             />
             <Button variant="contained" color="secondary" onClick={handleSubmit}>
-                Save
+                {t("save")}
             </Button>
         </Container>
     );

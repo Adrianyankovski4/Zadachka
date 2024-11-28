@@ -6,8 +6,8 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@mui/material/styles';
+import { LanguageProvider } from "./context/LanguageContext";
 import theme from './theme';
-import './i18n';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,9 +15,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <Provider store={store}> {/* Wrap App with Provider */}
+        <Provider store={store}>
             <ThemeProvider theme={theme}>
-                <App />
+                <LanguageProvider>
+                    <App />
+                </LanguageProvider>
             </ThemeProvider>
         </Provider>
     </React.StrictMode>
