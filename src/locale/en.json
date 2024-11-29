@@ -18,5 +18,6 @@
   "delete": "DELETE",
   "add_new_card": "Add new card",
   "cardName": "Card name",
-  "noCards": "No cards. Add some!"
+  "noCards": "No cards. Add some!",
+  "search_cards": "Search cards..."
 }

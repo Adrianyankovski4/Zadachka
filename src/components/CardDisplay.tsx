@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteCard } from '../features/cards/cardsSlice';
 import { RootState } from '../app/store';
-import { useLanguage } from "../context/LanguageContext";
 import { t } from "../locale/translation";
+import theme from "../theme";
 
 interface Card {
     id: number;
@@ -11,10 +11,17 @@ interface Card {
     image?: string | null;
 }
 
-const CardDisplay: React.FC = () => {
+interface CardDisplayProps {
+    searchTerm: string;
+}
+
+const CardDisplay: React.FC<CardDisplayProps> = ({ searchTerm }) => {
     const dispatch = useDispatch();
     const cards = useSelector((state: RootState) => state.cards);
-    const { language } = useLanguage();
+
+    const filteredCards = cards.filter((card) =>
+        card.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     const handleDelete = (id: number) => {
         dispatch(deleteCard({ id }));
@@ -22,11 +29,11 @@ const CardDisplay: React.FC = () => {
 
     return (
         <div style={styles.container}>
-            {cards.length === 0 ? (
+            {filteredCards.length === 0 ? (
                 <p style={styles.emptyMessage}>{t("noCards")}</p>
             ) : (
                 <div style={styles.grid}>
-                    {cards.map((card) => (
+                    {filteredCards.map((card) => (
                         <div key={card.id} style={styles.card}>
                             {card.image && (
                                 <img src={card.image} alt={card.name} style={styles.image} />
@@ -53,7 +60,7 @@ const styles = {
     },
     emptyMessage: {
         fontSize: '18px',
-        color: '#666',
+        color: theme.palette.primary.main,
     },
     grid: {
         display: 'flex',

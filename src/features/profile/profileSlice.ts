@@ -8,9 +8,10 @@ interface ProfileState {
 }
 
 const initialState: ProfileState = JSON.parse(sessionStorage.getItem('profile') || JSON.stringify({
-    name: 'Test User',
+    name: 'Vanko1',
     age: 25,
-    bio: 'This is a test user.',
+    bio: '"Кеф ти ламборджини, кеф ти две хиледарки...\n' +
+        'И накрая пак се питаш: \'Ванко, ти ли си Рио боса?\'',
     avatar: '/snimka.jpg',
 }));
 
